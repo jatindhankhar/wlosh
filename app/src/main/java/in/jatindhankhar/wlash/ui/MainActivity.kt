@@ -1,24 +1,32 @@
-package `in`.jatindhankhar.wlash
+package `in`.jatindhankhar.wlash.ui
 
+import `in`.jatindhankhar.wlash.R
+import `in`.jatindhankhar.wlash.ui.adapters.ImagesAdpater
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mLayoutManager: GridLayoutManager
+    private lateinit var mAdapter: ImagesAdpater
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        mLayoutManager = GridLayoutManager(this,2);
+        mAdapter = ImagesAdpater(baseContext)
+        recycler_view.layoutManager = mLayoutManager
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        recycler_view.adapter = mAdapter
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
