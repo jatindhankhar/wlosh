@@ -1,9 +1,9 @@
 package `in`.jatindhankhar.wlash.ui.adapters
 
 import `in`.jatindhankhar.wlash.R
+import `in`.jatindhankhar.wlash.model.Response
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,20 +13,20 @@ import kotlinx.android.synthetic.main.image_card.view.*
 /**
  * Created by jatin on 2/5/18.
  */
-class ImagesAdpater(private var mContext: Context) : RecyclerView.Adapter<ImagesAdpater.ViewHolder>() {
+class ImagesAdpater( mContext: Context) : RecyclerView.Adapter<ImagesAdpater.ViewHolder>() {
 
-    private var mPicasso: Picasso
-
-    init {
-        mPicasso = Picasso.with(mContext);
-    }
+    private var mPicasso: Picasso = Picasso.with(mContext)
+    private var responses: List<Response>? = null
 
     override fun onBindViewHolder(holder: ImagesAdpater.ViewHolder?, position: Int) {
-        holder?.bindItems(mPicasso);
+        val imageUrl:String? = responses?.get(position)?.urls?.small
+        holder?.bindItems(mPicasso,imageUrl);
     }
 
     override fun getItemCount(): Int {
-        return 5;
+        if(responses != null)
+            return responses!!.count()
+        return 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -42,11 +42,16 @@ class ImagesAdpater(private var mContext: Context) : RecyclerView.Adapter<Images
         }
     }*/
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindItems(picasso: Picasso) {
-            Log.d("DEBUG","Binding imageview")
-            picasso.load("http://i.imgur.com/DvpvklR.png").into(view.image);
+        fun bindItems(picasso: Picasso, imageUrl: String?) {
+            //picasso.load("http://i.imgur.com/DvpvklR.png").into(view.image);
+            imageUrl.let { picasso.load(it).into(view.image) }
         }
+    }
+
+    fun loadData(body: List<Response>) {
+        this.responses = body
+        notifyDataSetChanged()
     }
 }
