@@ -1,4 +1,4 @@
-package `in`.jatindhankhar.wlash.model
+package `in`.jatindhankhar.wlosh.model
 
 data class ProfileImage(
 

@@ -1,7 +1,7 @@
-package `in`.jatindhankhar.wlash.network
+package `in`.jatindhankhar.wlosh.network
 
-import `in`.jatindhankhar.wlash.BuildConfig
-import `in`.jatindhankhar.wlash.utils.Constants
+import `in`.jatindhankhar.wlosh.BuildConfig
+import `in`.jatindhankhar.wlosh.utils.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

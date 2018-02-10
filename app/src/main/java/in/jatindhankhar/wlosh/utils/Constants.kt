@@ -1,4 +1,4 @@
-package `in`.jatindhankhar.wlash.utils
+package `in`.jatindhankhar.wlosh.utils
 
 /**
  * Created by jatin on 2/6/18.

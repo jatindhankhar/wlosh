@@ -1,4 +1,4 @@
-package `in`.jatindhankhar.wlash.ui
+package `in`.jatindhankhar.wlosh.ui
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity

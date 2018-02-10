@@ -1,4 +1,4 @@
-package `in`.jatindhankhar.wlash
+package `in`.jatindhankhar.wlosh
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("in.jatindhankhar.wlash", appContext.packageName)
+        assertEquals("in.jatindhankhar.wlosh", appContext.packageName)
     }
 }

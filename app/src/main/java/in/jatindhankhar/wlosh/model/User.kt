@@ -1,6 +1,5 @@
-package `in`.jatindhankhar.wlash.model
+package `in`.jatindhankhar.wlosh.model
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class User(

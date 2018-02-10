@@ -1,4 +1,4 @@
-package `in`.jatindhankhar.wlash
+package `in`.jatindhankhar.wlosh
 
 import org.junit.Test
 

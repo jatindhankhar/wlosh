@@ -1,11 +1,10 @@
-package `in`.jatindhankhar.wlash.ui.adapters
+package `in`.jatindhankhar.wlosh.ui.adapters
 
-import `in`.jatindhankhar.wlash.R
-import `in`.jatindhankhar.wlash.model.Response
-import `in`.jatindhankhar.wlash.utils.Constants.GRID_VIEW
-import `in`.jatindhankhar.wlash.utils.Essentials
+import `in`.jatindhankhar.wlosh.R
+import `in`.jatindhankhar.wlosh.model.Response
+import `in`.jatindhankhar.wlosh.utils.Constants.GRID_VIEW
+import `in`.jatindhankhar.wlosh.utils.Essentials
 import android.content.Context
-import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log

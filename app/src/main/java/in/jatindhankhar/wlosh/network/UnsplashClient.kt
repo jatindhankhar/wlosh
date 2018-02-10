@@ -1,7 +1,6 @@
-package `in`.jatindhankhar.wlash.network
+package `in`.jatindhankhar.wlosh.network
 
-import `in`.jatindhankhar.wlash.model.Response
-import `in`.jatindhankhar.wlash.utils.Constants
+import `in`.jatindhankhar.wlosh.model.Response
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,15 +1,15 @@
-package `in`.jatindhankhar.wlash.ui
+package `in`.jatindhankhar.wlosh.ui
 
-import `in`.jatindhankhar.wlash.R
-import `in`.jatindhankhar.wlash.R.drawable.toggle
-import `in`.jatindhankhar.wlash.R.drawable.view_list
-import `in`.jatindhankhar.wlash.R.id.*
-import `in`.jatindhankhar.wlash.model.Response
-import `in`.jatindhankhar.wlash.network.ServiceGenerator
-import `in`.jatindhankhar.wlash.network.UnsplashClient
-import `in`.jatindhankhar.wlash.ui.adapters.ImagesAdapter
-import `in`.jatindhankhar.wlash.ui.listeners.InfiniteScrollListener
-import `in`.jatindhankhar.wlash.utils.Essentials
+import `in`.jatindhankhar.wlosh.R
+import `in`.jatindhankhar.wlosh.R.drawable.toggle
+import `in`.jatindhankhar.wlosh.R.drawable.view_list
+import `in`.jatindhankhar.wlosh.R.id.*
+import `in`.jatindhankhar.wlosh.model.Response
+import `in`.jatindhankhar.wlosh.network.ServiceGenerator
+import `in`.jatindhankhar.wlosh.network.UnsplashClient
+import `in`.jatindhankhar.wlosh.ui.adapters.ImagesAdapter
+import `in`.jatindhankhar.wlosh.ui.listeners.InfiniteScrollListener
+import `in`.jatindhankhar.wlosh.utils.Essentials
 import android.os.Build
 
 import android.os.Bundle

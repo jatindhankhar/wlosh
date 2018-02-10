@@ -1,22 +1,15 @@
-package `in`.jatindhankhar.wlash.utils
+package `in`.jatindhankhar.wlosh.utils
 
 import android.view.View
 import android.view.animation.*
-import java.time.Duration
 import java.util.*
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.app.Activity
 import android.content.Context
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.opengl.ETC1.getWidth
 import android.os.Build
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewCompat.animate
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import android.view.animation.Animation
-import android.view.animation.TranslateAnimation
 import android.view.animation.AlphaAnimation
 
 
