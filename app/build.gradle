@@ -22,7 +22,7 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String','UNSPLASH_CLIENT_ID',UnsplashClientID
+        it.buildConfigField 'String', 'UNSPLASH_CLIENT_ID', UnsplashClientID
     }
 }
 
@@ -38,9 +38,10 @@ ext {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     // Support Library Components
+    //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"
     implementation "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
     implementation "com.android.support:design:${supportLibVersion}"
@@ -58,6 +59,11 @@ dependencies {
     // Lottie
     implementation "com.airbnb.android:lottie:${lottieVersion}"
 
+    // Animation
+    implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
+
+    // Circular Image View
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="in.jatindhankhar.wlash.ui.MainActivity">
     <item
-       android:id="@+id/switch_layout"
-        android:title="Toggle Layout"
-        android:orderInCategory="200"
+        android:id="@+id/switch_layout"
         android:icon="@drawable/toggle"
-        app:showAsAction="ifRoom"
+        android:orderInCategory="200"
+        android:title="Toggle Layout"
         app:actionViewClass="android.widget.ImageView"
+        app:showAsAction="ifRoom"
 
         />
 

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_history_menu_bottom"
+    style="@style/Widget.Design.BottomNavigationView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/cardview_dark_background"
+    android:orientation="horizontal"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+
+        android:layout_marginStart="12dp"
+        android:layout_weight="0.6"
+        android:text="Load More ?"
+        android:textAppearance="@style/TextAppearance.Design.Snackbar.Message"
+        android:textColor="@color/cardview_light_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="12dp" />
+
+
+    <LinearLayout
+        android:id="@+id/fragment_history_bottom_sheet_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_weight="0.4"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/load_affirmation"
+            android:text="@string/load_more_affirmation"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/load_negetation"
+            android:text="@string/load_more_negetation"
+            android:textColor="@color/cardview_light_background" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
+<!--
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    >
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load More "
+            android:textAppearance="@style/TextAppearance.Design.Snackbar.Message"
+            android:layout_gravity="center_vertical"
+            />
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|end"
+                android:text="Yes"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                />
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                />
+
+
+
+        </android.support.v7.widget.ButtonBarLayout>
+
+</LinearLayout> -->

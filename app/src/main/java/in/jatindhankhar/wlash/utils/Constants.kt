@@ -5,4 +5,5 @@ package `in`.jatindhankhar.wlash.utils
  */
 object Constants {
         const val API_BASE_URL = "https://api.unsplash.com/"
+        const val GRID_VIEW = 2
 }

@@ -1,5 +1,8 @@
 package `in`.jatindhankhar.wlash.model
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class User(
 	val totalPhotos: Int? = null,
 	val twitterUsername: String? = null,
@@ -7,6 +10,7 @@ data class User(
 	val bio: String? = null,
 	val totalLikes: Int? = null,
 	val portfolioUrl: String? = null,
+	@SerializedName("profile_image")
 	val profileImage: ProfileImage? = null,
 	val updatedAt: String? = null,
 	val name: String? = null,
