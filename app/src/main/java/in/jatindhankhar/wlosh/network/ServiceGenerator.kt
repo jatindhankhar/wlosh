@@ -16,7 +16,7 @@ class ServiceGenerator {
                 .addConverterFactory(GsonConverterFactory.create())
         val httpClient = OkHttpClient.Builder()
 
-        fun create(): UnsplashClient {
+        fun create(): UnsplashService {
 
             httpClient.addInterceptor { chain ->
                 val urls = chain.request()?.url()?.newBuilder()?.addQueryParameter("client_id", BuildConfig.UNSPLASH_CLIENT_ID)?.build()
@@ -25,7 +25,7 @@ class ServiceGenerator {
             }
 
             return retrofit.client(httpClient.build())
-                    .build().create(UnsplashClient::class.java)
+                    .build().create(UnsplashService::class.java)
         }
     }
 }

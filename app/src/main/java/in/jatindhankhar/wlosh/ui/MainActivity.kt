@@ -1,15 +1,13 @@
 package `in`.jatindhankhar.wlosh.ui
 
 import `in`.jatindhankhar.wlosh.R
-import `in`.jatindhankhar.wlosh.R.drawable.toggle
-import `in`.jatindhankhar.wlosh.R.drawable.view_list
-import `in`.jatindhankhar.wlosh.R.id.*
 import `in`.jatindhankhar.wlosh.model.Response
 import `in`.jatindhankhar.wlosh.network.ServiceGenerator
-import `in`.jatindhankhar.wlosh.network.UnsplashClient
+import `in`.jatindhankhar.wlosh.network.UnsplashService
 import `in`.jatindhankhar.wlosh.ui.adapters.ImagesAdapter
+import `in`.jatindhankhar.wlosh.ui.adapters.SimpleFragmentPagerAdapter
+import `in`.jatindhankhar.wlosh.ui.fragments.ImagesFragment
 import `in`.jatindhankhar.wlosh.ui.listeners.InfiniteScrollListener
-import `in`.jatindhankhar.wlosh.utils.Essentials
 import android.os.Build
 
 import android.os.Bundle
@@ -19,7 +17,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
-import android.widget.ImageView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet_load_prompt.*
@@ -30,10 +27,14 @@ import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
+
+
     private lateinit var mLayoutManager: GridLayoutManager
     private lateinit var mAdapter: ImagesAdapter
-    private lateinit var mUnsplashClient: UnsplashClient
+    private lateinit var mUnsplashService: UnsplashService
     private lateinit var mBottomSheetDialog: BottomSheetDialog
+    private lateinit var mPagerAdapter: SimpleFragmentPagerAdapter
+    private lateinit var mMenu: Menu
     private var pageNumber = 1
     private var promptIncrease = 2
     private var promptThreshold = pageNumber + promptIncrease
@@ -46,11 +47,16 @@ class MainActivity : AppCompatActivity() {
         mAdapter = ImagesAdapter(applicationContext, null)
         recycler_view.layoutManager = mLayoutManager
         recycler_view.adapter = mAdapter
-        mUnsplashClient = ServiceGenerator.create()
-        loadMoreWallpapers(category = "curated")
+        mUnsplashService = ServiceGenerator.create()
+       // loadMoreWallpapers(category = "curated")
         recycler_view.addOnScrollListener(initInfiniteScroller( ))
         mBottomSheetDialog = initBottomSheetDialog()
-
+        mPagerAdapter = SimpleFragmentPagerAdapter(supportFragmentManager,this)
+        viewpager.adapter = mPagerAdapter
+        mPagerAdapter.addFragment(ImagesFragment.newInstance(""))
+        mPagerAdapter.addFragment(ImagesFragment.newInstance("curated"))
+        //mPagerAdapter.addFragment(PageFragment.newInstance(2))
+        sliding_tabs.setupWithViewPager(viewpager)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -84,13 +90,13 @@ class MainActivity : AppCompatActivity() {
         dialog.setOnDismissListener { _ -> loadingBlocked = true }
         return dialog
     }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+   /* override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         val toggleButton = menu.findItem(switch_layout).actionView as ImageView
         // Initial State
         toggleButton.setBackgroundResource(toggle)
-        toggleButton.setOnClickListener {
+     /*   toggleButton.setOnClickListener {
             Essentials.setFadeInAnimation(it)
             if(mLayoutManager.spanCount == 2)
             {
@@ -102,11 +108,11 @@ class MainActivity : AppCompatActivity() {
                 mLayoutManager.spanCount = 2
                 it.setBackgroundResource(toggle)
             }
-        }
+        }*/
 
 
         return true
-    }
+    }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -154,7 +160,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("YOLO","Damn currenrt is " + page)
         loading_animation.visibility = View.VISIBLE
-        mUnsplashClient.processPhotos(category,page=pageNumber).enqueue( object : Callback<List<Response>>
+        mUnsplashService.processPhotos(category,page=pageNumber).enqueue( object : Callback<List<Response>>
         {
 
             override fun onFailure(call: Call<List<Response>>?, t: Throwable?) {

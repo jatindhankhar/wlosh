@@ -1,5 +1,6 @@
 package `in`.jatindhankhar.wlosh.utils
 
+import `in`.jatindhankhar.wlosh.R
 import android.view.View
 import android.view.animation.*
 import java.util.*
@@ -78,4 +79,13 @@ object Essentials {
         this.setslideUpAnimation(targetView = tView,duration = tDuration)
         this.setslideFromLeftAnimation(targetView = tView,duration = tDuration)
     }
+
+    fun getToggleIcon(gridCount :Int):Int
+    {
+        return if(gridCount == 2)
+            R.drawable.toggle
+        else
+            R.drawable.view_list
+    }
+
 }
