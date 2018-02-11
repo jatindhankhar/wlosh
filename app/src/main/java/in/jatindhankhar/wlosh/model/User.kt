@@ -1,7 +1,12 @@
 package `in`.jatindhankhar.wlosh.model
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class User(
 	val totalPhotos: Int? = null,
 	val twitterUsername: String? = null,
@@ -19,4 +24,4 @@ data class User(
 	val id: String? = null,
 	val firstName: String? = null,
 	val username: String? = null
-)
+) : Parcelable

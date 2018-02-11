@@ -1,5 +1,11 @@
 package `in`.jatindhankhar.wlosh.model
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class Links(
 	val followers: String? = null,
 	val portfolio: String? = null,
@@ -8,4 +14,4 @@ data class Links(
 	val html: String? = null,
 	val photos: String? = null,
 	val likes: String? = null
-)
+) : Parcelable

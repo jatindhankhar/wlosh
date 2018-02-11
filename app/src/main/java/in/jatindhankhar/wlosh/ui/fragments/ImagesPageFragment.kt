@@ -5,12 +5,16 @@ import `in`.jatindhankhar.wlosh.R.drawable.toggle
 import `in`.jatindhankhar.wlosh.R.drawable.view_list
 import `in`.jatindhankhar.wlosh.model.Response
 import `in`.jatindhankhar.wlosh.network.UnSplashClient
+import `in`.jatindhankhar.wlosh.ui.ImagesDetailActivity
 import `in`.jatindhankhar.wlosh.ui.adapters.ImagesAdapter
+import `in`.jatindhankhar.wlosh.ui.listeners.ImageItemClickListener
 import `in`.jatindhankhar.wlosh.ui.listeners.InfiniteScrollListener
+import `in`.jatindhankhar.wlosh.utils.Constants
 import `in`.jatindhankhar.wlosh.utils.Constants.ARG_PAGE_CATEGORY
 import `in`.jatindhankhar.wlosh.utils.Essentials
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
@@ -18,6 +22,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.ImageView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.bottom_sheet_load_prompt.*
 import kotlinx.android.synthetic.main.fragment_page.view.*
 
@@ -25,7 +30,13 @@ import kotlinx.android.synthetic.main.fragment_page.view.*
 /**
  * Created by jatin on 2/10/18.
  */
-class ImagesFragment: Fragment() {
+class ImagesFragment: Fragment(),ImageItemClickListener {
+    override fun OnItemClick(response: Response) {
+        val intent = Intent(context,ImagesDetailActivity::class.java)
+        intent.putExtra(Constants.INTENT_RESPONSE_KEY,response)
+        startActivity(intent)
+
+    }
 
     private  var mPageCategory:String = ""
     private  lateinit var mUnSplashClient: UnSplashClient
@@ -43,7 +54,7 @@ class ImagesFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_page,container,false)
         val context = inflater.context
         mLayoutManager = GridLayoutManager(context,2)
-        mAdapter = ImagesAdapter(context, null)
+        mAdapter = ImagesAdapter(context, null,this)
         mBottomSheetDialog = initBottomSheetDialog(context)
         view.recycler_view.layoutManager = mLayoutManager
         view.recycler_view.addOnScrollListener(initInfiniteScroller( ))

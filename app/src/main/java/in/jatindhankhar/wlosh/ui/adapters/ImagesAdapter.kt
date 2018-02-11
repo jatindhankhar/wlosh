@@ -2,6 +2,7 @@ package `in`.jatindhankhar.wlosh.ui.adapters
 
 import `in`.jatindhankhar.wlosh.R
 import `in`.jatindhankhar.wlosh.model.Response
+import `in`.jatindhankhar.wlosh.ui.listeners.ImageItemClickListener
 import `in`.jatindhankhar.wlosh.utils.Constants.GRID_VIEW
 import `in`.jatindhankhar.wlosh.utils.Essentials
 import android.content.Context
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.image_card_landscape.view.*
 /**
  * Created by jatin on 2/5/18.
  */
-class ImagesAdapter(private var mContext: Context, private var mRecyclerView: RecyclerView?) : RecyclerView.Adapter<ImagesAdapter.ViewHolder>() {
+class ImagesAdapter(private var mContext: Context, private var mRecyclerView: RecyclerView?,private var mImageItemClickListener: ImageItemClickListener) : RecyclerView.Adapter<ImagesAdapter.ViewHolder>() {
 
     private var mPicasso: Picasso = Picasso.with(mContext)
     private var responses: MutableList<Response>? = null
@@ -26,7 +27,9 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
 
     override fun onBindViewHolder(holder: ImagesAdapter.ViewHolder?, position: Int) {
+        var response = responses?.get(position)
         holder?.bindItems( mPicasso, responses?.get(position))
+        holder?.itemView?.setOnClickListener{ response?.let { it1 -> mImageItemClickListener.OnItemClick(it1) } }
          setAnimation(holder?.itemView,position)
     }
 
@@ -59,7 +62,10 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
     class ViewHolder(private val view: View,private val viewType: Int) : RecyclerView.ViewHolder(view) {
 
+
         fun bindItems(picasso: Picasso,response: Response?) {
+            view
+          //  view.setOnClickListener(ImagesAdapter.)
             if(viewType == GRID_VIEW) {
                 response?.urls?.small.let { picasso.load(it).into(view.image) }
 
@@ -71,6 +77,7 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
                     response?.user?.profileImage?.medium.let { picasso.load(it).into(view.user_profile);  }
                 }
             }
+
         }
 
 
