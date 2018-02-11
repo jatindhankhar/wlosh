@@ -6,42 +6,54 @@ import `in`.jatindhankhar.wlosh.R.drawable.view_list
 import `in`.jatindhankhar.wlosh.model.Response
 import `in`.jatindhankhar.wlosh.network.UnSplashClient
 import `in`.jatindhankhar.wlosh.ui.adapters.ImagesAdapter
+import `in`.jatindhankhar.wlosh.ui.listeners.InfiniteScrollListener
 import `in`.jatindhankhar.wlosh.utils.Constants.ARG_PAGE_CATEGORY
 import `in`.jatindhankhar.wlosh.utils.Essentials
+import android.annotation.SuppressLint
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.*
-import android.widget.ImageButton
 import android.widget.ImageView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.bottom_sheet_load_prompt.*
+import kotlinx.android.synthetic.main.fragment_page.view.*
 
-import kotlinx.android.synthetic.main.content_main.view.*
 
 /**
  * Created by jatin on 2/10/18.
  */
 class ImagesFragment: Fragment() {
 
-    private  var mPageCategory:String? = null
+    private  var mPageCategory:String = ""
     private  lateinit var mUnSplashClient: UnSplashClient
     private lateinit var mLayoutManager: GridLayoutManager
     private lateinit var mAdapter: ImagesAdapter
     private lateinit var mMenuItem: ImageView
+    private var pageNumber = 1
+    private var promptIncrease = 7
+    private var promptThreshold = pageNumber + promptIncrease
+    private var loadingBlocked = true
+    private lateinit var mBottomSheetDialog: BottomSheetDialog
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_page,container,false)
         val context = inflater.context
         mLayoutManager = GridLayoutManager(context,2)
         mAdapter = ImagesAdapter(context, null)
+        mBottomSheetDialog = initBottomSheetDialog(context)
         view.recycler_view.layoutManager = mLayoutManager
+        view.recycler_view.addOnScrollListener(initInfiniteScroller( ))
+
         view.recycler_view.adapter = mAdapter
         view.recycler_view.layoutManager = mLayoutManager
         view.recycler_view.adapter = mAdapter
         view.recycler_view.visibility = View.VISIBLE
-        mPageCategory?.let { mUnSplashClient.fetchWallPapers(category = it) }
+        mPageCategory.let {  view.loading_animation.visibility = View.VISIBLE
+            mUnSplashClient.fetchWallPapers(category = it) }
         return view
 
     }
@@ -58,11 +70,14 @@ class ImagesFragment: Fragment() {
 
     private fun handleLoadFailure()
     {
-
+     view?.loading_animation?.visibility = View.GONE
     }
 
     private fun handleLoadSuccess(response: List<Response>)
     {
+        view?.loading_animation?.visibility = View.GONE
+        pageNumber++
+        loadingBlocked = false
         mAdapter.appendData(response)
 
     }
@@ -83,7 +98,7 @@ class ImagesFragment: Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.mPageCategory = arguments?.getString(ARG_PAGE_CATEGORY)
+        this.mPageCategory = arguments?.getString(ARG_PAGE_CATEGORY)!!
         setHasOptionsMenu(true)
         mUnSplashClient = initUnSplashClient()
 
@@ -120,5 +135,37 @@ class ImagesFragment: Fragment() {
 
     }
 
+    private fun initInfiniteScroller() : RecyclerView.OnScrollListener {
 
+        return object : InfiniteScrollListener(mLayoutManager, 10) {
+            override fun rePrompt() {
+                if (loadingBlocked) {
+                    //mBottomSheetDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+                    mBottomSheetDialog.show()
+                }
+            }
+
+            override fun onLoadMore() {
+
+                if (promptThreshold <= pageNumber) {
+                    mBottomSheetDialog.show()
+
+                } else {
+                    mPageCategory.let { view?.loading_animation?.visibility = View.VISIBLE; mUnSplashClient.fetchWallPapers(pageNumber, it) }
+                }
+            }
+
+        }
+    }
+
+        @SuppressLint("InflateParams")
+      private  fun initBottomSheetDialog(context: Context) : BottomSheetDialog
+        {
+            val dialog = BottomSheetDialog(context)
+            dialog.setContentView(this.layoutInflater.inflate(R.layout.bottom_sheet_load_prompt,null))
+            dialog.load_affirmation.setOnClickListener { _-> view?.loading_animation?.visibility = View.VISIBLE; mUnSplashClient.fetchWallPapers(pageNumber,mPageCategory); promptThreshold +=promptIncrease;dialog.cancel()  }
+            dialog.load_negetation.setOnClickListener { _ -> loadingBlocked = true; dialog.dismiss()}
+            dialog.setOnDismissListener { _ -> loadingBlocked = true }
+            return dialog
+        }
 }

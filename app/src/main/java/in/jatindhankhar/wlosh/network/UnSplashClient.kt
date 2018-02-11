@@ -2,9 +2,6 @@ package `in`.jatindhankhar.wlosh.network
 
 import `in`.jatindhankhar.wlosh.model.Response
 import android.util.Log
-import android.view.View
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.content_main.*
 import retrofit2.Call
 import retrofit2.Callback
 
@@ -14,7 +11,7 @@ import retrofit2.Callback
 abstract class UnSplashClient   {
     private var mUnsplashService: UnsplashService = ServiceGenerator.create()
 
-    fun fetchWallPapers(page:Int = 1,category: String="")
+    fun fetchWallPapers(page:Int = 1, category: String ="")
     {
         Log.d("Yolo","Fetching wallpapers")
 
