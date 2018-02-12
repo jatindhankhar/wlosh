@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.image_card.view.*
 import kotlinx.android.synthetic.main.image_card_landscape.view.*
+import kotlinx.android.synthetic.main.uploader_info_view.view.*
 
 /**
  * Created by jatin on 2/5/18.
@@ -27,7 +28,7 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
 
     override fun onBindViewHolder(holder: ImagesAdapter.ViewHolder?, position: Int) {
-        var response = responses?.get(position)
+        val response = responses?.get(position)
         holder?.bindItems( mPicasso, responses?.get(position))
         holder?.itemView?.setOnClickListener{ response?.let { it1 -> mImageItemClickListener.OnItemClick(it1) } }
          setAnimation(holder?.itemView,position)
@@ -83,15 +84,11 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
 
     fun appendData(body: List<Response>) {
-        Log.d("YOLO", "Hold is " + this.responses?.size)
         if (this.responses == null) {
-            Log.d("YOLO", "Fresh Init")
             this.responses = body.toMutableList()
         } else {
-            Log.d("YOLO", "Appending ")
             this.responses?.addAll(body)
         }
-        Log.d("YOLO", "Hold is  " + this.responses?.size)
         notifyDataSetChanged()
     }
 
@@ -116,5 +113,9 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
     interface ImagesAdapterCallBack {
         fun changeStatusBarColor(color:Int)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 }

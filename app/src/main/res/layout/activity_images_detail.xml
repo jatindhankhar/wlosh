@@ -22,20 +22,55 @@
         android:layout_height="match_parent"
         tools:src="@tools:sample/backgrounds/scenic"
         android:scaleType="centerCrop"
+        android:visibility="invisible"
         android:id="@+id/detail_image"
+        />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageProgress"
+        android:layout_gravity="center_horizontal|center_vertical"
         />
 
     <include
         layout="@layout/image_detail_bottom_sheet"
          />
 
-    <android.support.design.widget.FloatingActionButton
+
+
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:id="@+id/fab_save"
-        android:src="@drawable/wallpaper"
         app:layout_anchor="@+id/bottom_sheet"
-        app:layout_anchorGravity="top|end" />
+        app:layout_anchorGravity="top|end"
+        app:layout_dodgeInsetEdges="bottom"
+        android:layout_margin="8dp"
+        >
+
+        <ProgressBar
+            android:id="@+id/fabProgress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wallpaper"
+            android:clickable="false"
+            app:fabSize="normal"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>

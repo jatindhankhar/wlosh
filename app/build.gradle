@@ -37,6 +37,7 @@ ext {
     constraintLayoutVersion = '1.0.2'
     picassoVersion = '2.5.2'
     lottieVersion = "2.5.0-rc1"
+    anko_version='0.10.4'
 }
 
 dependencies {
@@ -67,6 +68,15 @@ dependencies {
 
     // Circular Image View
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    // Fab
+    implementation 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
+
+    //Anko
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-design:$anko_version"
+
+
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

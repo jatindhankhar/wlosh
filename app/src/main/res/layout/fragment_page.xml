@@ -17,7 +17,6 @@
         android:id="@+id/loading_animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/recycler_view"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -26,4 +25,6 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="loader.json"
         app:lottie_loop="true" />
+
+
 </android.support.constraint.ConstraintLayout>

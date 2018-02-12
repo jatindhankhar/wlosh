@@ -55,6 +55,7 @@ class ImagesFragment: Fragment(),ImageItemClickListener {
         val context = inflater.context
         mLayoutManager = GridLayoutManager(context,2)
         mAdapter = ImagesAdapter(context, null,this)
+        mAdapter.setHasStableIds(true)
         mBottomSheetDialog = initBottomSheetDialog(context)
         view.recycler_view.layoutManager = mLayoutManager
         view.recycler_view.addOnScrollListener(initInfiniteScroller( ))
