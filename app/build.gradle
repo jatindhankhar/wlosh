@@ -14,12 +14,12 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1-alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -75,6 +75,10 @@ dependencies {
     //Anko
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
     implementation "org.jetbrains.anko:anko-design:$anko_version"
+
+    // Permissions
+    implementation 'com.karumi:dexter:4.2.0'
+
 
 
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

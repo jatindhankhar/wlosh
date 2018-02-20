@@ -3,9 +3,11 @@ package `in`.jatindhankhar.wlosh.ui.fragments
 import `in`.jatindhankhar.wlosh.R
 import `in`.jatindhankhar.wlosh.R.drawable.toggle
 import `in`.jatindhankhar.wlosh.R.drawable.view_list
+import `in`.jatindhankhar.wlosh.R.id.empty_error_layout
 import `in`.jatindhankhar.wlosh.model.Response
 import `in`.jatindhankhar.wlosh.network.UnSplashClient
 import `in`.jatindhankhar.wlosh.ui.ImagesDetailActivity
+import `in`.jatindhankhar.wlosh.ui.MainActivity
 import `in`.jatindhankhar.wlosh.ui.adapters.ImagesAdapter
 import `in`.jatindhankhar.wlosh.ui.listeners.ImageItemClickListener
 import `in`.jatindhankhar.wlosh.ui.listeners.InfiniteScrollListener
@@ -23,8 +25,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
 import kotlinx.android.synthetic.main.bottom_sheet_load_prompt.*
+import kotlinx.android.synthetic.main.fragment_page.*
 import kotlinx.android.synthetic.main.fragment_page.view.*
+import org.jetbrains.anko.toast
 
 
 /**
@@ -55,15 +63,18 @@ class ImagesFragment: Fragment(),ImageItemClickListener {
         val context = inflater.context
         mLayoutManager = GridLayoutManager(context,2)
         mAdapter = ImagesAdapter(context, null,this)
-        mAdapter.setHasStableIds(true)
+       // mAdapter.setHasStableIds(true)
         mBottomSheetDialog = initBottomSheetDialog(context)
         view.recycler_view.layoutManager = mLayoutManager
         view.recycler_view.addOnScrollListener(initInfiniteScroller( ))
-
-        view.recycler_view.adapter = mAdapter
+        view.recycler_view.itemAnimator = LandingAnimator()
+        view.recycler_view.itemAnimator.addDuration = 1000
+        view.recycler_view.adapter = SlideInBottomAnimationAdapter(mAdapter)
         view.recycler_view.layoutManager = mLayoutManager
         view.recycler_view.adapter = mAdapter
+        view.recycler_view.itemAnimator = null
         view.recycler_view.visibility = View.VISIBLE
+        view.recycler_view.setEmptyView(view.fallback_error_layout)
         mPageCategory.let {  view.loading_animation.visibility = View.VISIBLE
             mUnSplashClient.fetchWallPapers(category = it) }
         return view
@@ -83,6 +94,7 @@ class ImagesFragment: Fragment(),ImageItemClickListener {
     private fun handleLoadFailure()
     {
      view?.loading_animation?.visibility = View.GONE
+        activity?.toast("Server Error :(")
     }
 
     private fun handleLoadSuccess(response: List<Response>)
@@ -98,6 +110,14 @@ class ImagesFragment: Fragment(),ImageItemClickListener {
     {
         return object: UnSplashClient()
         {
+            override fun onNotifyDownloadSuccess() {
+
+            }
+
+            override fun onNotifyDownloadFailure() {
+
+            }
+
             override fun onFetchWallpapersFailure() {
                 handleLoadFailure()
             }

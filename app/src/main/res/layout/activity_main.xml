@@ -39,16 +39,4 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
-
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:visibility="gone"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="hello-world.json"
-        app:lottie_loop="true" />
-
 </android.support.design.widget.CoordinatorLayout>

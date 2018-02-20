@@ -84,17 +84,18 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
 
     fun appendData(body: List<Response>) {
+
         if (this.responses == null) {
             this.responses = body.toMutableList()
         } else {
             this.responses?.addAll(body)
         }
-        notifyDataSetChanged()
+        notifyItemInserted(body.size);
     }
 
     fun loadData(body: List<Response>) {
         this.responses = body.toMutableList()
-        notifyDataSetChanged()
+
     }
 
     private fun setAnimation(targetView: View?, position: Int) {
@@ -111,11 +112,6 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
         holder?.itemView?.clearAnimation()
     }
 
-    interface ImagesAdapterCallBack {
-        fun changeStatusBarColor(color:Int)
-    }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+
 }

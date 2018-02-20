@@ -1,5 +1,6 @@
 package `in`.jatindhankhar.wlosh.network
 
+import `in`.jatindhankhar.wlosh.model.DownloadLinkResponse
 import `in`.jatindhankhar.wlosh.model.Response
 import android.util.Log
 import retrofit2.Call
@@ -36,8 +37,34 @@ abstract class UnSplashClient   {
         });
     }
 
+    // Notify Unsplash that an image was downloaded
+    fun notifyDownload(id:String)
+    {
+     mUnsplashService.pingDownloadPoint(id=id).enqueue(object: Callback<DownloadLinkResponse> {
+         override fun onFailure(call: Call<DownloadLinkResponse>?, t: Throwable?) {
+            onNotifyDownloadFailure()
+         }
+
+         override fun onResponse(call: Call<DownloadLinkResponse>?, response: retrofit2.Response<DownloadLinkResponse>?) {
+             if(response != null && response.isSuccessful)
+             {
+                 response.body()?.let {  onNotifyDownloadSuccess() }
+             }
+             else
+             {
+                 onNotifyDownloadFailure()
+             }
+         }
+
+     })
+    }
+
     abstract fun onFetchWallpapersFailure()
 
     abstract fun onFetchWallpapersSuccess(response: List<Response>)
+
+    abstract fun onNotifyDownloadSuccess()
+
+    abstract fun onNotifyDownloadFailure()
 
 }

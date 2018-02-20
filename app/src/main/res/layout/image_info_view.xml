@@ -19,6 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
+        android:id="@+id/extra_buttons"
+        android:visibility="gone"
         android:layout_gravity="center"
         >
 
@@ -28,6 +30,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/download"
             android:text="Save"
+            android:id="@+id/save_image_button"
             android:drawablePadding="5dp"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -39,6 +42,7 @@
             android:textColor="@color/colorPrimaryText"
             android:drawablePadding="5dp"
             android:text="Share"
+            android:id="@+id/share_image_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,6 +54,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/browser"
             android:text="More"
+            android:id="@+id/more_info_button"
             android:drawablePadding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

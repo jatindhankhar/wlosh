@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    <in.jatindhankhar.wlosh.utils.FallbackLayoutRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#e5e5e5"
+        android:visibility="gone"
         android:paddingTop="2dp"
          />
 
@@ -25,6 +27,20 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="loader.json"
         app:lottie_loop="true" />
+
+
+    <include
+        android:id="@+id/fallback_error_layout"
+        layout="@layout/empty_error_layout"
+        android:layout_height="142dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view"
+        app:layout_constraintTop_toBottomOf="@+id/loading_animation" />
 
 
 </android.support.constraint.ConstraintLayout>
