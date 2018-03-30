@@ -37,7 +37,7 @@ ext {
     constraintLayoutVersion = '1.0.2'
     picassoVersion = '2.5.2'
     lottieVersion = "2.5.0-rc1"
-    anko_version='0.10.4'
+    anko_version = '0.10.4'
 }
 
 dependencies {

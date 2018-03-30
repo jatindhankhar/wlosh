@@ -10,5 +10,7 @@ object Constants {
         const val INTENT_RESPONSE_KEY = "INTENT_RESPONSE_KEY"
         val TAB_TITLES = arrayOf("Fresh", "Curated", "Collections")
         const val TAB_COUNT = 3
+        const val PREF_FILE = "WloshPrefsFile"
+        const val ACCESS_KEY_PREF = "AcessKeyPref"
 
 }

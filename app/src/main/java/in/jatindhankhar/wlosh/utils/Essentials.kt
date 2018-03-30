@@ -1,12 +1,14 @@
 package `in`.jatindhankhar.wlosh.utils
 
 import `in`.jatindhankhar.wlosh.R
+import `in`.jatindhankhar.wlosh.utils.Constants.PREF_FILE
 import android.Manifest
 import android.app.Activity
 import android.view.View
 import android.view.animation.*
 import java.util.*
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -45,32 +47,7 @@ object Essentials {
     }
 
 
-    fun setStatusBarColor( ctx:Context,color: Int)
-    {
 
-        val window = (ctx as AppCompatActivity).window
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.statusBarColor = ContextCompat.getColor(ctx, color);
-            }
-        }
-    }
-
-    fun setScaleAnimation(targetView: View,duration: Long = 200L,random: Boolean = true)
-    {
-        val anim = ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
-        anim.interpolator = AccelerateDecelerateInterpolator()
-
-        if(random)
-            anim.duration = Random().nextInt(501).toLong()
-        else
-            anim.duration = duration
-        targetView.startAnimation(anim)
-    }
 
     fun setslideUpAnimation(targetView: View,duration: Long = 200L)
     {
@@ -80,19 +57,8 @@ object Essentials {
                 .translationY(0F).duration = duration
     }
 
-    fun setslideFromLeftAnimation(targetView: View,duration: Long = 200L)
-    {
-        targetView.animate()
-                .setInterpolator(DecelerateInterpolator(3.1f))
-                .translationXBy(-100F)
-                .translationX(0F).duration = 1000L
-    }
 
-    fun setSlideUpandLeftAnimation(tView: View,tDuration: Long = 200L)
-    {
-        this.setslideUpAnimation(targetView = tView,duration = tDuration)
-        this.setslideFromLeftAnimation(targetView = tView,duration = tDuration)
-    }
+
 
     fun getToggleIcon(gridCount :Int):Int
     {
@@ -165,4 +131,20 @@ object Essentials {
     }
 
 
+    fun prefWrite(ctx :Context,key :String,value :String)
+    {
+        ctx.getSharedPreferences(PREF_FILE,MODE_PRIVATE).edit().putString(key,value)
+                .apply()
+    }
+
+    fun prefRead(ctx: Context,key:String) :String
+    {
+        return ctx.getSharedPreferences(PREF_FILE, MODE_PRIVATE).getString(key,"")
+    }
+
+    fun prefExists(ctx: Context,key: String ) :Boolean
+    {
+
+        return prefRead(ctx,key).isEmpty()
+    }
 }
