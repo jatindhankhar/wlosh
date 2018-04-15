@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ProfileImage(
 
-	val small: String? = null,
-	val large: String? = null,
-	val medium: String? = null
+        val small: String? = null,
+        val large: String? = null,
+        val medium: String? = null
 ) : Parcelable

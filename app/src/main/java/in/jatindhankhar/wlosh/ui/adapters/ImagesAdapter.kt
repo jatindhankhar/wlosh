@@ -8,7 +8,6 @@ import `in`.jatindhankhar.wlosh.utils.Essentials
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.uploader_info_view.view.*
 /**
  * Created by jatin on 2/5/18.
  */
-class ImagesAdapter(private var mContext: Context, private var mRecyclerView: RecyclerView?,private var mImageItemClickListener: ImageItemClickListener) : RecyclerView.Adapter<ImagesAdapter.ViewHolder>() {
+class ImagesAdapter(private var mContext: Context, private var mRecyclerView: RecyclerView?, private var mImageItemClickListener: ImageItemClickListener) : RecyclerView.Adapter<ImagesAdapter.ViewHolder>() {
 
     private var mPicasso: Picasso = Picasso.with(mContext)
     private var responses: MutableList<Response>? = null
@@ -29,9 +28,9 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
     override fun onBindViewHolder(holder: ImagesAdapter.ViewHolder?, position: Int) {
         val response = responses?.get(position)
-        holder?.bindItems( mPicasso, responses?.get(position))
-        holder?.itemView?.setOnClickListener{ response?.let { it1 -> mImageItemClickListener.OnItemClick(it1) } }
-         setAnimation(holder?.itemView,position)
+        holder?.bindItems(mPicasso, responses?.get(position))
+        holder?.itemView?.setOnClickListener { response?.let { it1 -> mImageItemClickListener.OnItemClick(it1) } }
+        setAnimation(holder?.itemView, position)
     }
 
     override fun getItemCount(): Int {
@@ -57,30 +56,27 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
             R.layout.image_card_landscape
         val v = LayoutInflater.from(parent?.context)
                 .inflate(layout, parent, false)
-        return ViewHolder(v,viewType)
+        return ViewHolder(v, viewType)
     }
 
 
-    class ViewHolder(private val view: View,private val viewType: Int) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val view: View, private val viewType: Int) : RecyclerView.ViewHolder(view) {
 
 
-        fun bindItems(picasso: Picasso,response: Response?) {
+        fun bindItems(picasso: Picasso, response: Response?) {
             view
-          //  view.setOnClickListener(ImagesAdapter.)
-            if(viewType == GRID_VIEW) {
+            //  view.setOnClickListener(ImagesAdapter.)
+            if (viewType == GRID_VIEW) {
                 response?.urls?.small.let { picasso.load(it).into(view.image) }
 
+            } else {
+                response?.urls?.small.let { picasso.load(it).into(view.image_landscape) }
+                response?.user?.name.let { view.user_name.text = it }
+                response?.user?.profileImage?.medium.let { picasso.load(it).into(view.user_profile); }
             }
-            else
-                {
-                    response?.urls?.small.let { picasso.load(it).into(view.image_landscape) }
-                    response?.user?.name.let { view.user_name.text = it }
-                    response?.user?.profileImage?.medium.let { picasso.load(it).into(view.user_profile);  }
-                }
-            }
-
         }
 
+    }
 
 
     fun appendData(body: List<Response>) {
@@ -111,7 +107,6 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
         super.onViewDetachedFromWindow(holder)
         holder?.itemView?.clearAnimation()
     }
-
 
 
 }

@@ -10,5 +10,5 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class DownloadLinkResponse(
-        val url:String? = null
+        val url: String? = null
 ) : Parcelable

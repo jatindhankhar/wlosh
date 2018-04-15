@@ -10,21 +10,20 @@ import android.support.v4.app.FragmentPagerAdapter
 /**
  * Created by jatin on 2/10/18.
  */
-class SimpleFragmentPagerAdapter(mFragmentManager:FragmentManager, mContext: Context): FragmentPagerAdapter(mFragmentManager) {
-    private val mFragments:MutableList<Fragment> = mutableListOf()
+class SimpleFragmentPagerAdapter(mFragmentManager: FragmentManager, mContext: Context) : FragmentPagerAdapter(mFragmentManager) {
+    private val mFragments: MutableList<Fragment> = mutableListOf()
 
 
-    fun addFragment(fragment: Fragment)
-    {
+    fun addFragment(fragment: Fragment) {
         mFragments.add(fragment)
         notifyDataSetChanged()
     }
 
-    fun addAllFragments(fragment: List<Fragment>)
-    {
+    fun addAllFragments(fragment: List<Fragment>) {
         mFragments.addAll(fragment)
         notifyDataSetChanged()
     }
+
     override fun getItem(position: Int): Fragment {
         return mFragments[position]
     }
@@ -34,7 +33,7 @@ class SimpleFragmentPagerAdapter(mFragmentManager:FragmentManager, mContext: Con
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return if(position + 1 > TAB_COUNT)
+        return if (position + 1 > TAB_COUNT)
             ""
         else
             TAB_TITLES[position]

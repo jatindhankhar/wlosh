@@ -1,6 +1,5 @@
 package `in`.jatindhankhar.wlosh.network
 
-import `in`.jatindhankhar.wlosh.BuildConfig
 import `in`.jatindhankhar.wlosh.utils.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -16,10 +15,9 @@ class ServiceGenerator {
                 .addConverterFactory(GsonConverterFactory.create())
         val httpClient = OkHttpClient.Builder()
 
-        fun create(): UnsplashService {
-
+        fun create(accessKey: String): UnsplashService {
             httpClient.addInterceptor { chain ->
-                val urls = chain.request()?.url()?.newBuilder()?.addQueryParameter("client_id", BuildConfig.UNSPLASH_CLIENT_ID)?.build()
+                val urls = chain.request()?.url()?.newBuilder()?.addQueryParameter("client_id", accessKey)?.build()
                 val requests = chain.request()?.newBuilder()?.url(urls)?.build()
                 chain.proceed(requests)
             }

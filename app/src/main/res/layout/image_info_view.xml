@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -9,53 +8,51 @@
     android:orientation="vertical">
 
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@android:color/black"
-        />
+        android:background="@android:color/black" />
+
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/extra_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:id="@+id/extra_buttons"
-        android:visibility="gone"
         android:layout_gravity="center"
-        >
+        android:layout_marginTop="1dp"
+        android:visibility="gone">
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/save_image_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/download"
-            android:text="Save"
-            android:id="@+id/save_image_button"
             android:drawablePadding="5dp"
+            android:text="Save"
             app:layout_constraintStart_toStartOf="parent" />
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/share_image_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/share"
-            android:textColor="@color/colorPrimaryText"
             android:drawablePadding="5dp"
             android:text="Share"
-            android:id="@+id/share_image_button"
+            android:textColor="@color/colorPrimaryText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/more_info_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/browser"
-            android:text="More"
-            android:id="@+id/more_info_button"
             android:drawablePadding="5dp"
+            android:text="More"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

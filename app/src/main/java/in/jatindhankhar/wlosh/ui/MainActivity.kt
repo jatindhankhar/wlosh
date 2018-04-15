@@ -4,15 +4,11 @@ import `in`.jatindhankhar.wlosh.R
 import `in`.jatindhankhar.wlosh.ui.adapters.SimpleFragmentPagerAdapter
 import `in`.jatindhankhar.wlosh.ui.fragments.ImagesFragment
 import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
-
-import android.net.NetworkInfo
-import android.content.Context.CONNECTIVITY_SERVICE
-import android.net.ConnectivityManager
 import org.jetbrains.anko.design.longSnackbar
 
 
@@ -29,11 +25,9 @@ class MainActivity : AppCompatActivity() {
         viewpager.adapter = mPagerAdapter
         mPagerAdapter.addFragment(ImagesFragment.newInstance(""))
         mPagerAdapter.addFragment(ImagesFragment.newInstance("curated"))
-        //mPagerAdapter.addFragment(PageFragment.newInstance(2))
         sliding_tabs.setupWithViewPager(viewpager)
-        if(!haveNetworkConnection())
-        {
-            longSnackbar(coordinator_layout,"Looks like, you are not connected. Some functionality will not be available")
+        if (!haveNetworkConnection()) {
+            longSnackbar(coordinator_layout, "Looks like, you are not connected. Some functionality will not be available")
 
         }
 

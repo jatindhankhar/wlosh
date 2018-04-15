@@ -2,11 +2,10 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_container"
     tools:context="in.jatindhankhar.wlosh.ui.ImagesDetailActivity">
-
 
 
     <android.support.v7.widget.Toolbar
@@ -14,49 +13,45 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
         android:visibility="gone"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
+
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/detail_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:src="@tools:sample/backgrounds/scenic"
         android:scaleType="centerCrop"
         android:visibility="invisible"
-        android:id="@+id/detail_image"
-        />
+        tools:src="@tools:sample/backgrounds/scenic" />
+
     <ProgressBar
+        android:id="@+id/imageProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageProgress"
-        android:layout_gravity="center_horizontal|center_vertical"
-        />
+        android:layout_gravity="center_horizontal|center_vertical" />
 
     <ImageView
+        android:id="@+id/image_error"
         style="@style/Base.Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
-        android:src="@drawable/dead_emoji"
-        android:id="@+id/image_error"
         android:layout_gravity="center_horizontal|center_vertical"
+        android:src="@drawable/dead_emoji"
+        android:visibility="gone"
 
         />
-    <include
-        layout="@layout/image_detail_bottom_sheet"
-         />
 
-
+    <include layout="@layout/image_detail_bottom_sheet" />
 
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         app:layout_anchor="@+id/bottom_sheet"
         app:layout_anchorGravity="top|end"
-        app:layout_dodgeInsetEdges="bottom"
-        android:layout_margin="8dp"
-        >
+        app:layout_dodgeInsetEdges="bottom">
 
         <ProgressBar
             android:id="@+id/fabProgress"
@@ -65,22 +60,18 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:visibility="invisible"
-            />
+            android:visibility="invisible" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/wallpaper"
-            android:clickable="false"
-            app:fabSize="normal"
             android:layout_centerInParent="true"
-            />
+            android:clickable="false"
+            android:src="@drawable/wallpaper"
+            app:fabSize="normal" />
 
     </RelativeLayout>
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>

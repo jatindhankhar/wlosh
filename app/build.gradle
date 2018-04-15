@@ -24,9 +24,7 @@ android {
         }
     }
 
-    buildTypes.each {
-        it.buildConfigField 'String', 'UNSPLASH_CLIENT_ID', UnsplashClientID
-    }
+
 }
 
 ext {
