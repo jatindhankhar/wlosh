@@ -26,7 +26,7 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
     private var lastPosition: Int = -1
 
 
-    override fun onBindViewHolder(holder: ImagesAdapter.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: ImagesAdapter.ViewHolder, position: Int) {
         val response = responses?.get(position)
         holder?.bindItems(mPicasso, responses?.get(position))
         holder?.itemView?.setOnClickListener { response?.let { it1 -> mImageItemClickListener.OnItemClick(it1) } }
@@ -43,18 +43,18 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
         return (mRecyclerView?.layoutManager as GridLayoutManager).spanCount
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.mRecyclerView = recyclerView
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout: Int = if (viewType == GRID_VIEW)
             R.layout.image_card
         else
             R.layout.image_card_landscape
-        val v = LayoutInflater.from(parent?.context)
+        val v = LayoutInflater.from(parent.context)
                 .inflate(layout, parent, false)
         return ViewHolder(v, viewType)
     }
@@ -103,9 +103,9 @@ class ImagesAdapter(private var mContext: Context, private var mRecyclerView: Re
 
     }
 
-    override fun onViewDetachedFromWindow(holder: ImagesAdapter.ViewHolder?) {
+    override fun onViewDetachedFromWindow(holder: ImagesAdapter.ViewHolder) {
         super.onViewDetachedFromWindow(holder)
-        holder?.itemView?.clearAnimation()
+        holder.itemView?.clearAnimation()
     }
 
 
