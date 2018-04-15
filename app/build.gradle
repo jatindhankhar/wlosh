@@ -21,6 +21,10 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFile 'proguard-picasso.pro'
+            proguardFile 'proguard-okhttp3.pro'
+            proguardFile 'proguard-retrofit2.pro'
+
         }
     }
 
