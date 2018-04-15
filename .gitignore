@@ -41,6 +41,9 @@ captures/
 .idea/libraries
 .idea
 
+# App Release
+app/release
+
 # Keystore files
 *.jks
 
