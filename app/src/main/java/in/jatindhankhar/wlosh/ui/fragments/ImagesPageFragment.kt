@@ -139,7 +139,7 @@ class ImagesFragment : Fragment(), ImageItemClickListener {
         //val toggleButton = menu.findItem(R.id.switch_layout).actionView as ImageView
 
         // Initial State
-        mMenuItem.setOnClickListener({
+        mMenuItem.setOnClickListener {
             Essentials.setFadeInAnimation(it)
             if (mLayoutManager.spanCount == 2) {
                 mLayoutManager.spanCount = 1
@@ -148,7 +148,7 @@ class ImagesFragment : Fragment(), ImageItemClickListener {
                 mLayoutManager.spanCount = 2
                 it.setBackgroundResource(toggle)
             }
-        })
+        }
 
 
     }
@@ -165,7 +165,6 @@ class ImagesFragment : Fragment(), ImageItemClickListener {
         return object : InfiniteScrollListener(mLayoutManager, 10) {
             override fun rePrompt() {
                 if (loadingBlocked) {
-                    //mBottomSheetDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
                     mBottomSheetDialog.show()
                 }
             }
@@ -187,9 +186,9 @@ class ImagesFragment : Fragment(), ImageItemClickListener {
     private fun initBottomSheetDialog(context: Context): BottomSheetDialog {
         val dialog = BottomSheetDialog(context)
         dialog.setContentView(this.layoutInflater.inflate(R.layout.bottom_sheet_load_prompt, null))
-        dialog.load_affirmation.setOnClickListener { _ -> view?.loading_animation?.visibility = View.VISIBLE; mUnSplashClient.fetchWallPapers(pageNumber, mPageCategory); promptThreshold += promptIncrease;dialog.cancel() }
-        dialog.load_negetation.setOnClickListener { _ -> loadingBlocked = true; dialog.dismiss() }
-        dialog.setOnDismissListener { _ -> loadingBlocked = true }
+        dialog.load_affirmation.setOnClickListener { view?.loading_animation?.visibility = View.VISIBLE; mUnSplashClient.fetchWallPapers(pageNumber, mPageCategory); promptThreshold += promptIncrease;dialog.cancel() }
+        dialog.load_negetation.setOnClickListener { loadingBlocked = true; dialog.dismiss() }
+        dialog.setOnDismissListener { loadingBlocked = true }
         return dialog
     }
 }

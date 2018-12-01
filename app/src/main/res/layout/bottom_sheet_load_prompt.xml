@@ -56,45 +56,4 @@
             android:text="@string/load_more_negetation"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout><!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    >
-
-
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Load More "
-            android:textAppearance="@style/TextAppearance.Design.Snackbar.Message"
-            android:layout_gravity="center_vertical"
-            />
-
-        <android.support.v7.widget.ButtonBarLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-
-            <android.support.v7.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|end"
-                android:text="Yes"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                />
-            <android.support.v7.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                />
-
-
-
-        </android.support.v7.widget.ButtonBarLayout>
-
-</LinearLayout> -->
+</android.support.constraint.ConstraintLayout>
