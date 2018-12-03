@@ -6,7 +6,10 @@ import `in`.jatindhankhar.wlosh.network.UnSplashClient
 import `in`.jatindhankhar.wlosh.utils.Constants
 import `in`.jatindhankhar.wlosh.utils.Essentials
 import `in`.jatindhankhar.wlosh.utils.Essentials.checkandAskforStorageWritePermission
+import android.app.Dialog
+import android.app.DialogFragment
 import android.app.WallpaperManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -18,6 +21,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
@@ -29,6 +33,7 @@ import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_images_detail.*
 import kotlinx.android.synthetic.main.image_detail_bottom_sheet.*
 import kotlinx.android.synthetic.main.image_info_view.*
+import kotlinx.android.synthetic.main.multi_screen_wallpaper_chooser.*
 import kotlinx.android.synthetic.main.uploader_info_view.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.longSnackbar
@@ -127,23 +132,7 @@ class ImagesDetailActivity : AppCompatActivity() {
 
 
         fab_save.setOnClickListener {
-            it.isEnabled = false
-            fabProgress.visibility = View.VISIBLE
-            doAsync {
-                val result = setUserWallpaper(mBitmap)
-                uiThread {
-                    fabProgress.visibility = View.INVISIBLE
-                    if (result) {
-                        snackbar(layout_container, "Wallpaper Set Successful")
-                        fab_save.setImageResource(R.drawable.done)
-                    } else {
-                        fab_save.setImageResource(R.drawable.error_outline)
-                        fab_save.isEnabled = true
-                        toast("Cannot set Wallpaper !")
-                    }
-                }
-            }
-
+            showWallpaperScreenChooser()
         }
 
 
@@ -192,11 +181,23 @@ class ImagesDetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUserWallpaper(bitmap: Bitmap?): Boolean {
+    private fun setUserWallpaper(bitmap: Bitmap?,homeScreen: Boolean = true, lockScreen: Boolean = false): Boolean {
         bitmap?.let {
 
             return try {
-                mWallpaperManager.setBitmap(mBitmap)
+
+                if(homeScreen){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        mWallpaperManager.setBitmap(mBitmap,null,true,WallpaperManager.FLAG_SYSTEM)
+                    }
+                    else{
+                        mWallpaperManager.setBitmap(mBitmap)
+                    }
+
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && lockScreen) {
+                    mWallpaperManager.setBitmap(mBitmap,null,true,WallpaperManager.FLAG_LOCK)
+                }
                 true
             } catch (e: Exception) {
                 false
@@ -210,10 +211,29 @@ class ImagesDetailActivity : AppCompatActivity() {
         return true
     }
 
-    private fun toggleFullscreen(fullscreen: Boolean) {
+    private fun initWallPaperSet(homeScreen: Boolean = false, lockScreen: Boolean = false){
+        fabProgress.visibility = View.VISIBLE
+        doAsync {
+            val result = setUserWallpaper(mBitmap,homeScreen,lockScreen)
+            uiThread {
+                fabProgress.visibility = View.INVISIBLE
+                if (result) {
+                    snackbar(layout_container, "Wallpaper Set Successful")
+                    fab_save.setImageResource(R.drawable.done)
+                    fab_save.isEnabled = false
+                } else {
+                    fab_save.setImageResource(R.drawable.error_outline)
+                    fab_save.isEnabled = true
+                    toast("Cannot set Wallpaper !")
+                }
+            }
+        }
 
-        //
+    }
+    private fun toggleFullscreen(fullscreen: Boolean) {
+        val sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
         if (fullscreen) {
+            sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 val mDecorView = window.decorView
                 mDecorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -228,6 +248,7 @@ class ImagesDetailActivity : AppCompatActivity() {
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE;
             }
         } else {
+            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -348,6 +369,15 @@ class ImagesDetailActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun showWallpaperScreenChooser(){
+        val dialog = Dialog(this@ImagesDetailActivity)
+        dialog.setContentView(this.layoutInflater.inflate(R.layout.multi_screen_wallpaper_chooser, null))
+        dialog.homeScreenOption.setOnClickListener { initWallPaperSet(true,false); dialog.hide()}
+        dialog.lockScreenOption.setOnClickListener {initWallPaperSet(false,true); dialog.hide() }
+        dialog.bothScreenOption.setOnClickListener { initWallPaperSet(true,true); dialog.hide() }
+        dialog.show()
     }
 
 

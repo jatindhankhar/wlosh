@@ -45,8 +45,9 @@ android {
             proguardFile 'proguard-okhttp3.pro'
             proguardFile 'proguard-retrofit2.pro'
             proguardFile 'proguard-gson.pro'
-
-
+        }
+        debug {
+            minifyEnabled false
         }
     }
 
